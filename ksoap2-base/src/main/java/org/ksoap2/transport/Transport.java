@@ -27,8 +27,9 @@ import java.util.List;
 import java.io.*;
 import java.net.Proxy;
 
+import libcore.util.XmlObjectFactory;
+
 import org.ksoap2.*;
-import org.kxml2.io.*;
 import org.xmlpull.v1.*;
 
 /**
@@ -110,7 +111,9 @@ abstract public class Transport {
      */
     protected void parseResponse(SoapEnvelope envelope, InputStream is)
             throws XmlPullParserException, IOException {
-        XmlPullParser xp = new KXmlParser();
+        // Android-changed: Use XmlObjectFactory instead of a specific implementation.
+        // XmlPullParser xp = new KXmlParser();
+        XmlPullParser xp = XmlObjectFactory.newXmlPullParser();
         xp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true);
         xp.setInput(is, null);
         envelope.parse(xp);
@@ -125,8 +128,12 @@ abstract public class Transport {
         byte result[] = null;
         bos.write(xmlVersionTag.getBytes());
         System.out.println("bos.write");
-        XmlSerializer xw = new KXmlSerializer();
-        System.out.println("new KXmlSerializer");
+        // BEGIN Android-changed: Use XmlObjectFactory instead of a specific implementation.
+        // XmlSerializer xw = new KXmlSerializer();
+        // System.out.println("new KXmlSerializer");
+        XmlSerializer xw = XmlObjectFactory.newXmlSerializer();
+        System.out.println("newXmlSerializer()");
+        // END Android-changed: Use XmlObjectFactory instead of a specific implementation.
         xw.setOutput(bos, encoding);
         System.out.println("xw.setOutput");
         envelope.write(xw);
