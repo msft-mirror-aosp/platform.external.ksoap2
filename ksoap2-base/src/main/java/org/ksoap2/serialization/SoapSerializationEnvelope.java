@@ -26,12 +26,12 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
+import libcore.util.XmlObjectFactory;
+
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.io.ByteArrayOutputStream;
-
-import org.kxml2.io.*;
 
 /**
  * @author Stefan Haustein
@@ -639,7 +639,9 @@ public class SoapSerializationEnvelope extends SoapEnvelope
                         name.equals("MgmtTree") // format v6
                 ) {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    XmlSerializer xw = new KXmlSerializer();
+                    // Android-changed: Use XmlObjectFactory instead of a specific implementation.
+                    // XmlSerializer xw = new KXmlSerializer();
+                    XmlSerializer xw = XmlObjectFactory.newXmlSerializer();
                     xw.setOutput(bos, "UTF-8");
                     xw.startTag((dotNet) ? "" : namespace, name);
                     if (!implicitTypes) {
