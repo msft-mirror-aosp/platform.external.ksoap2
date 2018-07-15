@@ -31,8 +31,9 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 
+import libcore.util.XmlObjectFactory;
+
 import org.ksoap2.*;
-import org.kxml2.io.*;
 import org.xmlpull.v1.*;
 
 /**
@@ -124,7 +125,9 @@ abstract public class Transport {
      */
     protected void parseResponse(SoapEnvelope envelope, InputStream is)
             throws XmlPullParserException, IOException {
-        XmlPullParser xp = new KXmlParser();
+        // Android-changed: Use XmlObjectFactory instead of a specific implementation.
+        // XmlPullParser xp = new KXmlParser();
+        XmlPullParser xp = XmlObjectFactory.newXmlPullParser();
         xp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true);
         xp.setInput(is, null);
         envelope.parse(xp);
@@ -142,10 +145,11 @@ abstract public class Transport {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(bufferLength);
         byte result[] = null;
         bos.write(xmlVersionTag.getBytes());
-        XmlSerializer xw = new KXmlSerializer();
+        // Android-changed: Use XmlObjectFactory instead of a specific implementation.
+        // XmlSerializer xw = new KXmlSerializer();
+        XmlSerializer xw = XmlObjectFactory.newXmlSerializer();
 
         final Iterator keysIter = prefixes.keySet().iterator();
-
         xw.setOutput(bos, encoding);
         while (keysIter.hasNext()) {
             String key = (String) keysIter.next();
