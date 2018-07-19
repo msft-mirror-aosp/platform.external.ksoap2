@@ -39,8 +39,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.kxml2.io.*;
-
 /**
  * @author Stefan Haustein
  *
