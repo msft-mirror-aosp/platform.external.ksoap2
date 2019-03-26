@@ -152,7 +152,7 @@ public class HttpTransportSE extends Transport {
 
         requestDump = debug ? new String(requestData) : null;
         responseDump = null;
-        System.out.println("requestDump: " + requestDump);
+        // System.out.println("requestDump: " + requestDump);
         ServiceConnection connection = getServiceConnection();
 
         connection.setRequestProperty("User-Agent", USER_AGENT);
@@ -334,7 +334,7 @@ public class HttpTransportSE extends Transport {
         bos = null;
         responseDump = new String(buf);
         is.close();
-        System.out.println("responseDump: " + requestDump);
+        // System.out.println("responseDump: " + requestDump);
         if (outputFile != null) {
             return new FileInputStream(outputFile);
         } else {
