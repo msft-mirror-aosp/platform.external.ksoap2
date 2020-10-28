@@ -1,5 +1,5 @@
 java_library {
     name: "ksoap2",
-    sdk_version: "system_current",
+    sdk_version: "system_30",
     srcs: ["**/*.java"],
 }
