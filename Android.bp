@@ -33,4 +33,5 @@ java_library {
     sdk_version: "system_current",
     min_sdk_version: "30",
     srcs: ["**/*.java"],
+    apex_available: ["com.android.wifi"],
 }
